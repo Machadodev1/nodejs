@@ -1,0 +1,165 @@
+{
+  "info": {
+    "name": "API CRUD (GET/POST/DELETE)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "clientes",
+      "item": [
+        {
+          "name": "GET - lista",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/clientes"
+          }
+        },
+        {
+          "name": "POST - crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Perez\",\n  \"email\": \"juan.perez@example.com\",\n  \"telefono\": \"123456789\"\n}"
+            },
+            "url": "http://localhost:8080/clientes"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "if (jsonData && jsonData._id) { pm.environment.set('idCliente', jsonData._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET - por id",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/clientes/{{idCliente}}"
+          }
+        },
+        {
+          "name": "DELETE - por id",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/clientes/{{idCliente}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "productos",
+      "item": [
+        {
+          "name": "GET - lista",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/productos"
+          }
+        },
+        {
+          "name": "POST - crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Laptop\",\n  \"precio\": 999.99,\n  \"stock\": 10\n}"
+            },
+            "url": "http://localhost:8080/productos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "if (jsonData && jsonData._id) { pm.environment.set('idProducto', jsonData._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET - por id",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/productos/{{idProducto}}"
+          }
+        },
+        {
+          "name": "DELETE - por id",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/productos/{{idProducto}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "servicios",
+      "item": [
+        {
+          "name": "GET - lista",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/servicios"
+          }
+        },
+        {
+          "name": "POST - crear",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mantenimiento\",\n  \"precio\": 49.5,\n  \"duracionMinutos\": 60\n}"
+            },
+            "url": "http://localhost:8080/servicios"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "if (jsonData && jsonData._id) { pm.environment.set('idServicio', jsonData._id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET - por id",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/servicios/{{idServicio}}"
+          }
+        },
+        {
+          "name": "DELETE - por id",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/servicios/{{idServicio}}"
+          }
+        }
+      ]
+    }
+  ]
+}
+
