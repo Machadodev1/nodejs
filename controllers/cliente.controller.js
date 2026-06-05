@@ -2,7 +2,8 @@ const Cliente = require('../models/cliente.model');
 
 exports.consultar = async (req, res) => {
   const data = await Cliente.find();
-  res.json(data);
+  res.render('pages/clientes.ejs', { clientes: data });
+
 };
 
 exports.obtenerPorId = async (req, res) => {

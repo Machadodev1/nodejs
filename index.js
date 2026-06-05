@@ -11,11 +11,15 @@ const servicioController = require("./controllers/servicio.controller");
 const app = express();
 
 app.use(express.json());
+app.set('view engine', 'ejs');
 
 conexion
   .then(() => console.log("Conexion exitosa a MongoDB"))
   .catch(err => console.log(err));
 
+app.get('/', (req, res) => {
+  res.render('pages/index.ejs');
+});
 app.get('/clientes', clienteController.consultar);
 app.get('/clientes/:id', clienteController.obtenerPorId);
 app.post('/clientes', clienteController.crear);
@@ -37,3 +41,4 @@ app.delete('/servicios/:id', servicioController.eliminar);
 app.listen(8080, () => {
   console.log("Servidor corriendo en puerto 8000");
 });
+

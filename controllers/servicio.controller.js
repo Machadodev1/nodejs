@@ -2,7 +2,7 @@ const Servicio = require('../models/servicio.model');
 
 exports.consultar = async (req, res) => {
   const data = await Servicio.find();
-  res.json(data);
+  res.render('pages/services.ejs', { servicios: data });
 };
 
 exports.obtenerPorId = async (req, res) => {

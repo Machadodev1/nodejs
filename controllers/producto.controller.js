@@ -2,7 +2,7 @@ const Producto = require('../models/producto.model');
 
 exports.consultar = async (req, res) => {
   const data = await Producto.find();
-  res.json(data);
+  res.render('pages/productos.ejs', { productos: data });
 };
 
 exports.obtenerPorId = async (req, res) => {

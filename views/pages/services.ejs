@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Servicios</h1>
+            <table> 
+                <thead>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Duracion (minutos)</th>
+                </thead>
+                <tbody>
+                    <% servicios.forEach(function(servicio) { %>
+                        <tr>
+                            <th><%= servicio.nombre %></th>
+                            <th><%= servicio.precio %></th>
+                            <th><%= servicio.duracionMinutos %></th>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>            
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>
