@@ -4,12 +4,12 @@ const productoSchema = new mongoose.Schema({
 
   nombre: {
     type: String,
-    required: true
+    required: [true, "nombre obligatorio"]
   },
 
   precio: {
     type: Number,
-    required: true
+    required: [true, "precio obligatorio"]
   },
 
   stock: {
