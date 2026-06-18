@@ -16,6 +16,15 @@ exports.crear = async (req, res) => {
   res.json(data);
 };
 
+exports.crear = async (req, res) => {
+  
+
+  const data = new Producto(req.body);
+  await data.save();
+
+  res.redirect('/productos');
+};
+
 exports.actualizar = async (req, res) => {
   const data = await Producto.findByIdAndUpdate(
     req.params.id,

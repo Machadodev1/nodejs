@@ -32,6 +32,9 @@ exports.actualizar = async (req, res) => {
 };
 
 exports.eliminar = async (req, res) => {
-  await Cliente.findByIdAndDelete(req.params.id);
-  res.json({ mensaje: "Cliente eliminado" });
+    const resultado = await Cliente.findByIdAndDelete(req.params.id);
+
+    console.log(resultado);
+
+    res.redirect('/clientes');
 };

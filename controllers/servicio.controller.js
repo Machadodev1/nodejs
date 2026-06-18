@@ -10,10 +10,15 @@ exports.obtenerPorId = async (req, res) => {
   res.json(data);
 };
 
+
+
 exports.crear = async (req, res) => {
+  
+
   const data = new Servicio(req.body);
   await data.save();
-  res.json(data);
+
+  res.redirect('/servicios');
 };
 
 exports.actualizar = async (req, res) => {

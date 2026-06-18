@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
     <header>
@@ -12,22 +14,37 @@
     <main>
         <div>
             <h1>Productos</h1>
-            <table id="tabla"> 
+            <table id="tabla" class="table table-bordered table-hover">
                 <thead>
-                    <th>Stock</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
+                    <tr>
+                        <th>Stock</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </tr>
                 </thead>
+
                 <tbody>
                     <% productos.forEach(function(producto) { %>
                         <tr>
-                            <td><%= producto.stock %></td>
-                            <td><%= producto.nombre %></td>
-                            <td><%= producto.precio %></td>
+                            <td>
+                                <%= producto.stock %>
+                            </td>
+                            <td>
+                                <%= producto.nombre %>
+                            </td>
+                            <td>
+                                <%= producto.precio %>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-outline-info">Ver Detalle</a>
+                                <a href="#" class="btn btn-outline-warning">Editar</a>
+                                <a href="#" class="btn btn-outline-danger">Eliminar</a>
+                            </td>
                         </tr>
-                    <% }); %>
+                        <% }); %>
                 </tbody>
-            </table>            
+            </table>
         </div>
     </main>
 
@@ -36,4 +53,5 @@
     </footer>
 
 </body>
+
 </html>

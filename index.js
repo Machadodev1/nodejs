@@ -30,18 +30,25 @@ app.delete('/clientes/:id', clienteController.eliminar);
 app.get('/crearcliente', (req, res) => {
     res.render('pages/crearcliente.ejs');
 });
+app.get('/eliminarcliente/:id', clienteController.eliminar);
 
 app.get('/productos', productoController.consultar);
 app.get('/productos/:id', productoController.obtenerPorId);
-app.post('/productos', productoController.crear);
+app.post('/crearproducto', productoController.crear);
 app.put('/productos/:id', productoController.actualizar);
 app.delete('/productos/:id', productoController.eliminar);
+app.get('/crearproducto', (req, res) => {
+  res.render('pages/crearproducto.ejs');
+});
 
 app.get('/servicios', servicioController.consultar);
 app.get('/servicios/:id', servicioController.obtenerPorId);
-app.post('/servicios', servicioController.crear);
+app.post('/crearservicio', servicioController.crear);
 app.put('/servicios/:id', servicioController.actualizar);
 app.delete('/servicios/:id', servicioController.eliminar);
+app.get('/crearservicio', (req, res) => {
+  res.render('pages/crearservicio.ejs');
+});
 
 app.listen(9000, () => {
   console.log("Servidor corriendo en puerto 9000");
