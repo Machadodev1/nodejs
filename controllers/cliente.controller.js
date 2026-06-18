@@ -12,9 +12,14 @@ exports.obtenerPorId = async (req, res) => {
 };
 
 exports.crear = async (req, res) => {
+  if (!req.body.email && req.body.correo) {
+    req.body.email = req.body.correo;
+  }
+
   const data = new Cliente(req.body);
   await data.save();
-  res.json(data);
+
+  res.redirect('/clientes');
 };
 
 exports.actualizar = async (req, res) => {

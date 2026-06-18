@@ -11,7 +11,9 @@ const servicioController = require("./controllers/servicio.controller");
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+
 
 conexion
   .then(() => console.log("Conexion exitosa a MongoDB"))
@@ -22,9 +24,12 @@ app.get('/', (req, res) => {
 });
 app.get('/clientes', clienteController.consultar);
 app.get('/clientes/:id', clienteController.obtenerPorId);
-app.post('/clientes', clienteController.crear);
+app.post('/crearcliente', clienteController.crear);
 app.put('/clientes/:id', clienteController.actualizar);
 app.delete('/clientes/:id', clienteController.eliminar);
+app.get('/crearcliente', (req, res) => {
+    res.render('pages/crearcliente.ejs');
+});
 
 app.get('/productos', productoController.consultar);
 app.get('/productos/:id', productoController.obtenerPorId);
@@ -38,7 +43,7 @@ app.post('/servicios', servicioController.crear);
 app.put('/servicios/:id', servicioController.actualizar);
 app.delete('/servicios/:id', servicioController.eliminar);
 
-app.listen(8080, () => {
-  console.log("Servidor corriendo en puerto 8000");
+app.listen(9000, () => {
+  console.log("Servidor corriendo en puerto 9000");
 });
 
