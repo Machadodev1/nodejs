@@ -9,7 +9,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    new DataTable('#tabla');
+    document.addEventListener('DOMContentLoaded', function () {
+        new DataTable('#tabla', {
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json"
+            },
+
+        });
+    });
 </script>
-
-
