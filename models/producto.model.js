@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const productoSchema = new mongoose.Schema({
-
   nombre: {
     type: String,
     required: [true, "nombre obligatorio"]
@@ -20,3 +19,10 @@ const productoSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Producto', productoSchema);
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 const Servicio = require('../models/servicio.model');
 
+
 exports.consultar = async (req, res) => {
   const data = await Servicio.find();
   res.render('pages/services.ejs', { servicios: data });
@@ -10,11 +11,7 @@ exports.obtenerPorId = async (req, res) => {
   res.json(data);
 };
 
-
-
 exports.crear = async (req, res) => {
-  
-
   const data = new Servicio(req.body);
   await data.save();
 
@@ -34,3 +31,5 @@ exports.eliminar = async (req, res) => {
   await Servicio.findByIdAndDelete(req.params.id);
   res.json({ mensaje: "Servicio eliminado" });
 };
+
+

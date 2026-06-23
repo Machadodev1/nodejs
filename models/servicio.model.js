@@ -6,5 +6,11 @@ const servicioSchema = new mongoose.Schema({
   duracionMinutos: { type: Number, required: [true, "duracionMinutos obligatoria"] }
 });
 
-
 module.exports = mongoose.model('Servicio', servicioSchema, 'servicios');
+
+
+
+
+
+
+

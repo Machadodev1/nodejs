@@ -10,6 +10,11 @@ router.post('/crearservicio', servicioController.crear);
 router.put('/servicios/:id', servicioController.actualizar);
 router.delete('/servicios/:id', servicioController.eliminar);
 
+
+
+
+
+
 router.get('/crearservicio', (req, res) => {
   res.render('pages/crearservicio.ejs');
 });

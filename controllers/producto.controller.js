@@ -13,15 +13,6 @@ exports.obtenerPorId = async (req, res) => {
 exports.crear = async (req, res) => {
   const data = new Producto(req.body);
   await data.save();
-  res.json(data);
-};
-
-exports.crear = async (req, res) => {
-  
-
-  const data = new Producto(req.body);
-  await data.save();
-
   res.redirect('/productos');
 };
 
@@ -38,3 +29,6 @@ exports.eliminar = async (req, res) => {
   await Producto.findByIdAndDelete(req.params.id);
   res.json({ mensaje: "Producto eliminado" });
 };
+
+
+

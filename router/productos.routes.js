@@ -10,6 +10,11 @@ router.post('/crearproducto', productoController.crear);
 router.put('/productos/:id', productoController.actualizar);
 router.delete('/productos/:id', productoController.eliminar);
 
+
+
+
+
+
 router.get('/crearproducto', (req, res) => {
   res.render('pages/crearproducto.ejs');
 });
