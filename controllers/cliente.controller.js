@@ -53,11 +53,13 @@ exports.actualizar = async (req, res) => {
 };
 
 exports.eliminar = async (req, res) => {
-    const resultado = await Cliente.findByIdAndDelete(req.params.id);
-
-    console.log(resultado);
-
+  try {
+    await Cliente.findByIdAndDelete(req.params.id);
     res.redirect('/clientes');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al eliminar");
+  }
 };
 
 

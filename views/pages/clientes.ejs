@@ -47,9 +47,7 @@
 
                             <td>
 
-                                <button
-                                    type="button"
-                                    class="btn btn-outline-info"
+                                <button type="button" class="btn btn-outline-info"
                                     onclick="verCliente('<%= cliente._id %>')">
 
                                     Ver detalle
@@ -60,15 +58,18 @@
                                     Editar
                                 </a>
 
-                                <a href="#" class="btn btn-outline-danger">
-                                    Eliminar
-                                </a>
+                                <form action="/clientes/eliminar/<%= cliente._id %>?_method=DELETE" method="POST"
+                                    style="display:inline;">
+                                    <button type="submit" class="btn btn-outline-danger">
+                                        Eliminar
+                                    </button>
+                                </form> Eliminar
 
                             </td>
 
                         </tr>
 
-                    <% }); %>
+                        <% }); %>
 
                 </tbody>
 
@@ -77,11 +78,7 @@
         </div>
 
 
-        <div class="modal fade"
-             id="modalCliente"
-             tabindex="-1"
-             aria-labelledby="tituloModalCliente"
-             aria-hidden="true">
+        <div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="tituloModalCliente" aria-hidden="true">
 
             <div class="modal-dialog">
 
@@ -93,11 +90,7 @@
                             Detalle del Cliente
                         </h5>
 
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
 
                     </div>
@@ -123,10 +116,7 @@
 
                     <div class="modal-footer">
 
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
 
                             Cerrar
 
