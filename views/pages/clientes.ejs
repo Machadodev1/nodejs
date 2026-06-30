@@ -7,226 +7,231 @@
 
 <body class="container">
 
-<header>
-    <%- include('../partials/header'); %>
-</header>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
 
-<main>
+    <main>
 
-<h1>Clientes</h1>
+        <h1>Clientes</h1>
 
-<table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover">
 
-<thead>
-<tr>
-<th>Nombre</th>
-<th>Email</th>
-<th>Teléfono</th>
-<th>Acciones</th>
-</tr>
-</thead>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-<tbody>
+            <tbody>
 
-<% clientes.forEach(function(cliente){ %>
+                <% clientes.forEach(function(cliente){ %>
 
-<tr>
+                    <tr>
 
-<td><%= cliente.nombre %></td>
-<td><%= cliente.email %></td>
-<td><%= cliente.telefono %></td>
+                        <td>
+                            <%= cliente.nombre %>
+                        </td>
+                        <td>
+                            <%= cliente.email %>
+                        </td>
+                        <td>
+                            <%= cliente.telefono %>
+                        </td>
 
-<td>
+                        <td>
 
-<button class="btn btn-outline-info"
-onclick="verCliente('<%= cliente._id %>')">
-Ver detalle
-</button>
+                            <button class="btn btn-outline-info" onclick="verCliente('<%= cliente._id %>')">
+                                Ver detalle
+                            </button>
 
-<button class="btn btn-outline-warning"
-onclick="abrirModalEditar('<%= cliente._id %>', '<%= cliente.nombre %>', '<%= cliente.email %>', '<%= cliente.telefono %>')">
-Editar
-</button>
+                            <button class="btn btn-outline-warning"
+                                onclick="abrirModalEditar('<%= cliente._id %>', '<%= cliente.nombre %>', '<%= cliente.email %>', '<%= cliente.telefono %>')">
+                                Editar
+                            </button>
 
-<button class="btn btn-outline-danger"
-onclick="abrirModalEliminar('<%= cliente._id %>')">
-Eliminar
-</button>
+                            <button class="btn btn-outline-danger" onclick="abrirModalEliminar('<%= cliente._id %>')">
+                                Eliminar
+                            </button>
 
-</td>
+                        </td>
 
-</tr>
+                    </tr>
 
-<% }); %>
+                    <% }); %>
 
-</tbody>
+            </tbody>
 
-</table>
+        </table>
 
-</main>
+    </main>
 
-<!-- ================= DETALLE ================= -->
+    <!-- ================= DETALLE ================= -->
 
-<div class="modal fade" id="modalCliente" tabindex="-1">
+    <div class="modal fade" id="modalCliente" tabindex="-1">
 
-<div class="modal-dialog">
+        <div class="modal-dialog">
 
-<div class="modal-content">
+            <div class="modal-content">
 
-<div class="modal-header">
-<h5>Detalle del Cliente</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
+                <div class="modal-header">
+                    <h5>Detalle del Cliente</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<div class="modal-body">
+                <div class="modal-body">
 
-<p><strong>Nombre:</strong> <span id="nombreCliente"></span></p>
-<p><strong>Email:</strong> <span id="emailCliente"></span></p>
-<p><strong>Teléfono:</strong> <span id="telefonoCliente"></span></p>
+                    <p><strong>Nombre:</strong> <span id="nombreCliente"></span></p>
+                    <p><strong>Email:</strong> <span id="emailCliente"></span></p>
+                    <p><strong>Teléfono:</strong> <span id="telefonoCliente"></span></p>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<!-- ================= EDITAR ================= -->
+    <!-- ================= EDITAR ================= -->
 
-<div class="modal fade" id="modalEditarCliente" tabindex="-1">
+    <div class="modal fade" id="modalEditarCliente" tabindex="-1">
 
-<div class="modal-dialog">
+        <div class="modal-dialog">
 
-<div class="modal-content">
+            <div class="modal-content">
 
-<div class="modal-header">
-<h5>Editar Cliente</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
+                <div class="modal-header">
+                    <h5>Editar Cliente</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<form id="formEditarCliente" method="POST">
+                <form id="formEditarCliente" method="POST">
 
-<div class="modal-body">
+                    <div class="modal-body">
 
-<input class="form-control mb-2" id="editNombre" name="nombre" placeholder="Nombre">
-<input class="form-control mb-2" id="editEmail" name="email" placeholder="Email">
-<input class="form-control mb-2" id="editTelefono" name="telefono" placeholder="Teléfono">
+                        <input class="form-control mb-2" id="editNombre" name="nombre" placeholder="Nombre">
+                        <input class="form-control mb-2" id="editEmail" name="email" placeholder="Email">
+                        <input class="form-control mb-2" id="editTelefono" name="telefono" placeholder="Teléfono">
 
-</div>
+                    </div>
 
-<div class="modal-footer">
+                    <div class="modal-footer">
 
-<button class="btn btn-secondary" data-bs-dismiss="modal">
-Cancelar
-</button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
 
-<button class="btn btn-warning" type="submit">
-Actualizar
-</button>
+                        <button class="btn btn-warning" type="submit">
+                            Actualizar
+                        </button>
 
-</div>
+                    </div>
 
-</form>
+                </form>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<!-- ================= ELIMINAR ================= -->
+    <!-- ================= ELIMINAR ================= -->
 
-<div class="modal fade" id="modalEliminarCliente" tabindex="-1">
+    <div class="modal fade" id="modalEliminarCliente" tabindex="-1">
 
-<div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
 
-<div class="modal-content">
+            <div class="modal-content">
 
-<div class="modal-header">
-<h5>Confirmar eliminación</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
+                <div class="modal-header">
+                    <h5>Confirmar eliminación</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<div class="modal-body">
-¿Seguro que quieres eliminar este cliente?
-</div>
+                <div class="modal-body">
+                    ¿Seguro que quieres eliminar este cliente?
+                </div>
 
-<div class="modal-footer">
+                <div class="modal-footer">
 
-<button class="btn btn-secondary" data-bs-dismiss="modal">
-Cancelar
-</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
 
-<form id="formEliminarCliente" method="POST">
-<button type="button" class="btn btn-danger" onclick="confirmarEliminar()">
-Eliminar
-</button>
-</form>
+                    <form id="formEliminarCliente" method="POST">
+                        <button type="button" class="btn btn-danger" onclick="confirmarEliminar()">
+                            Eliminar
+                        </button>
+                    </form>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<footer>
-    <%- include('../partials/footer'); %>
-</footer>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
-<script>
+    <script>
 
-let clienteIdEliminar = null;
-let clienteIdEditar = null;
+        let clienteIdEliminar = null;
+        let clienteIdEditar = null;
 
-async function verCliente(id){
+        async function verCliente(id) {
 
-const res = await fetch(`/clientes/${id}`);
-const data = await res.json();
+            const res = await fetch(`/clientes/${id}`);
+            const data = await res.json();
 
-document.getElementById("nombreCliente").textContent = data.nombre;
-document.getElementById("emailCliente").textContent = data.email;
-document.getElementById("telefonoCliente").textContent = data.telefono;
+            document.getElementById("nombreCliente").textContent = data.nombre;
+            document.getElementById("emailCliente").textContent = data.email;
+            document.getElementById("telefonoCliente").textContent = data.telefono;
 
-new bootstrap.Modal(document.getElementById("modalCliente")).show();
+            new bootstrap.Modal(document.getElementById("modalCliente")).show();
 
-}
+        }
 
-function abrirModalEditar(id, nombre, email, telefono){
+        function abrirModalEditar(id, nombre, email, telefono) {
 
-clienteIdEditar = id;
+            clienteIdEditar = id;
 
-document.getElementById("editNombre").value = nombre;
-document.getElementById("editEmail").value = email;
-document.getElementById("editTelefono").value = telefono;
+            document.getElementById("editNombre").value = nombre;
+            document.getElementById("editEmail").value = email;
+            document.getElementById("editTelefono").value = telefono;
 
-document.getElementById("formEditarCliente").action =
-`/clientes/editar/${id}?_method=PUT`;
+            document.getElementById("formEditarCliente").action =
+                `/clientes/editar/${id}?_method=PUT`;
 
-new bootstrap.Modal(document.getElementById("modalEditarCliente")).show();
+            new bootstrap.Modal(document.getElementById("modalEditarCliente")).show();
 
-}
+        }
 
-function abrirModalEliminar(id){
-clienteIdEliminar = id;
+        function abrirModalEliminar(id) {
+            clienteIdEliminar = id;
 
-new bootstrap.Modal(
-document.getElementById("modalEliminarCliente")
-).show();
+            new bootstrap.Modal(
+                document.getElementById("modalEliminarCliente")
+            ).show();
 
-}
+        }
 
-function confirmarEliminar(){
+        function confirmarEliminar() {
 
-const form = document.getElementById("formEliminarCliente");
-form.action = `/clientes/eliminar/${clienteIdEliminar}?_method=DELETE`;
-form.submit();
+            const form = document.getElementById("formEliminarCliente");
+            form.action = `/clientes/eliminar/${clienteIdEliminar}?_method=DELETE`;
+            form.submit();
 
-}
+        }
 
-</script>
+    </script>
 
 </body>
+
 </html>

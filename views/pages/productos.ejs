@@ -7,236 +7,243 @@
 
 <body class="container">
 
-<header>
-    <%- include('../partials/header'); %>
-</header>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
 
-<main>
+    <main>
 
-<h1>Productos</h1>
+        <h1>Productos</h1>
 
-<table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover">
 
-<thead>
-<tr>
-<th>Stock</th>
-<th>Nombre</th>
-<th>Precio</th>
-<th>Acciones</th>
-</tr>
-</thead>
+            <thead>
+                <tr>
+                    <th>Stock</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-<tbody>
+            <tbody>
 
-<% productos.forEach(function(producto){ %>
+                <% productos.forEach(function(producto){ %>
 
-<tr>
+                    <tr>
 
-<td><%= producto.stock %></td>
-<td><%= producto.nombre %></td>
-<td><%= producto.precio %></td>
+                        <td>
+                            <%= producto.stock %>
+                        </td>
+                        <td>
+                            <%= producto.nombre %>
+                        </td>
+                        <td>
+                            <%= producto.precio %>
+                        </td>
 
-<td>
+                        <td>
 
-<button class="btn btn-outline-info"
-onclick="verProducto('<%= producto._id %>')">
-Ver detalle
-</button>
+                            <button class="btn btn-outline-info" onclick="verProducto('<%= producto._id %>')">
+                                Ver detalle
+                            </button>
 
-<button class="btn btn-outline-warning"
-onclick="abrirModalEditarProducto('<%= producto._id %>', '<%= producto.nombre %>', '<%= producto.precio %>', '<%= producto.stock %>', '<%= producto.categoria %>')">
-Editar
-</button>
+                            <button class="btn btn-outline-warning"
+                                onclick="abrirModalEditarProducto('<%= producto._id %>', '<%= producto.nombre %>', '<%= producto.precio %>', '<%= producto.stock %>', '<%= producto.categoria %>')">
+                                Editar
+                            </button>
 
-<button class="btn btn-outline-danger"
-onclick="abrirModalEliminarProducto('<%= producto._id %>')">
-Eliminar
-</button>
+                            <button class="btn btn-outline-danger"
+                                onclick="abrirModalEliminarProducto('<%= producto._id %>')">
+                                Eliminar
+                            </button>
 
-</td>
+                        </td>
 
-</tr>
+                    </tr>
 
-<% }) %>
+                    <% }) %>
 
-</tbody>
+            </tbody>
 
-</table>
+        </table>
 
-</main>
+    </main>
 
-<!-- ================= DETALLE ================= -->
+    <!-- ================= DETALLE ================= -->
 
-<div class="modal fade" id="modalProducto" tabindex="-1">
+    <div class="modal fade" id="modalProducto" tabindex="-1">
 
-<div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg">
 
-<div class="modal-content">
+            <div class="modal-content">
 
-<div class="modal-header">
-<h5>Detalle Producto</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
+                <div class="modal-header">
+                    <h5>Detalle Producto</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<div class="modal-body">
+                <div class="modal-body">
 
-<p><b>Nombre:</b> <span id="nombreProducto"></span></p>
-<p><b>Precio:</b> <span id="precioProducto"></span></p>
-<p><b>Stock:</b> <span id="stockProducto"></span></p>
-<p><b>Categoría:</b> <span id="categoriaProducto"></span></p>
+                    <p><b>Nombre:</b> <span id="nombreProducto"></span></p>
+                    <p><b>Precio:</b> <span id="precioProducto"></span></p>
+                    <p><b>Stock:</b> <span id="stockProducto"></span></p>
+                    <p><b>Categoría:</b> <span id="categoriaProducto"></span></p>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<!-- ================= EDITAR ================= -->
+    <!-- ================= EDITAR ================= -->
 
-<div class="modal fade" id="modalEditarProducto" tabindex="-1">
+    <div class="modal fade" id="modalEditarProducto" tabindex="-1">
 
-<div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg">
 
-<div class="modal-content">
+            <div class="modal-content">
 
-<div class="modal-header">
-<h5>Editar Producto</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
+                <div class="modal-header">
+                    <h5>Editar Producto</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<form id="formEditarProducto" method="POST">
+                <form id="formEditarProducto" method="POST">
 
-<div class="modal-body">
+                    <div class="modal-body">
 
-<input class="form-control mb-2" id="editNombreProducto" name="nombre" placeholder="Nombre">
+                        <input class="form-control mb-2" id="editNombreProducto" name="nombre" placeholder="Nombre">
 
-<input class="form-control mb-2" id="editPrecioProducto" name="precio" placeholder="Precio">
+                        <input class="form-control mb-2" id="editPrecioProducto" name="precio" placeholder="Precio">
 
-<input class="form-control mb-2" id="editStockProducto" name="stock" placeholder="Stock">
+                        <input class="form-control mb-2" id="editStockProducto" name="stock" placeholder="Stock">
 
-<input class="form-control mb-2" id="editCategoriaProducto" name="categoria" placeholder="Categoría">
+                        <input class="form-control mb-2" id="editCategoriaProducto" name="categoria"
+                            placeholder="Categoría">
 
-</div>
+                    </div>
 
-<div class="modal-footer">
+                    <div class="modal-footer">
 
-<button class="btn btn-secondary" data-bs-dismiss="modal">
-Cancelar
-</button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
 
-<button class="btn btn-warning" type="submit">
-Actualizar
-</button>
+                        <button class="btn btn-warning" type="submit">
+                            Actualizar
+                        </button>
 
-</div>
+                    </div>
 
-</form>
+                </form>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<!-- ================= ELIMINAR ================= -->
+    <!-- ================= ELIMINAR ================= -->
 
-<div class="modal fade" id="modalEliminarProducto" tabindex="-1">
+    <div class="modal fade" id="modalEliminarProducto" tabindex="-1">
 
-<div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
 
-<div class="modal-content">
+            <div class="modal-content">
 
-<div class="modal-header">
-<h5>Confirmar eliminación</h5>
-<button class="btn-close" data-bs-dismiss="modal"></button>
-</div>
+                <div class="modal-header">
+                    <h5>Confirmar eliminación</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-<div class="modal-body">
-¿Seguro que quieres eliminar este producto?
-</div>
+                <div class="modal-body">
+                    ¿Seguro que quieres eliminar este producto?
+                </div>
 
-<div class="modal-footer">
+                <div class="modal-footer">
 
-<button class="btn btn-secondary" data-bs-dismiss="modal">
-Cancelar
-</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
 
-<form id="formEliminarProducto" method="POST">
-<button type="button" class="btn btn-danger" onclick="confirmarEliminarProducto()">
-Eliminar
-</button>
-</form>
+                    <form id="formEliminarProducto" method="POST">
+                        <button type="button" class="btn btn-danger" onclick="confirmarEliminarProducto()">
+                            Eliminar
+                        </button>
+                    </form>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<footer>
-    <%- include('../partials/footer'); %>
-</footer>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
-<script>
+    <script>
 
-let productoIdEliminar = null;
+        let productoIdEliminar = null;
 
-async function verProducto(id){
+        async function verProducto(id) {
 
-const res = await fetch(`/productos/${id}`);
-const data = await res.json();
+            const res = await fetch(`/productos/${id}`);
+            const data = await res.json();
 
-document.getElementById("nombreProducto").textContent = data.nombre;
-document.getElementById("precioProducto").textContent = data.precio;
-document.getElementById("stockProducto").textContent = data.stock;
-document.getElementById("categoriaProducto").textContent = data.categoria;
+            document.getElementById("nombreProducto").textContent = data.nombre;
+            document.getElementById("precioProducto").textContent = data.precio;
+            document.getElementById("stockProducto").textContent = data.stock;
+            document.getElementById("categoriaProducto").textContent = data.categoria;
 
-new bootstrap.Modal(document.getElementById("modalProducto")).show();
+            new bootstrap.Modal(document.getElementById("modalProducto")).show();
 
-}
+        }
 
-/* ================= EDITAR ================= */
+        /* ================= EDITAR ================= */
 
-function abrirModalEditarProducto(id, nombre, precio, stock, categoria){
+        function abrirModalEditarProducto(id, nombre, precio, stock, categoria) {
 
-document.getElementById("editNombreProducto").value = nombre;
-document.getElementById("editPrecioProducto").value = precio;
-document.getElementById("editStockProducto").value = stock;
-document.getElementById("editCategoriaProducto").value = categoria;
+            document.getElementById("editNombreProducto").value = nombre;
+            document.getElementById("editPrecioProducto").value = precio;
+            document.getElementById("editStockProducto").value = stock;
+            document.getElementById("editCategoriaProducto").value = categoria;
 
-document.getElementById("formEditarProducto").action =
-`/productos/editar/${id}?_method=PUT`;
+            document.getElementById("formEditarProducto").action =
+                `/productos/editar/${id}?_method=PUT`;
 
-new bootstrap.Modal(document.getElementById("modalEditarProducto")).show();
+            new bootstrap.Modal(document.getElementById("modalEditarProducto")).show();
 
-}
+        }
 
-/* ================= ELIMINAR ================= */
+        /* ================= ELIMINAR ================= */
 
-function abrirModalEliminarProducto(id){
-productoIdEliminar = id;
+        function abrirModalEliminarProducto(id) {
+            productoIdEliminar = id;
 
-new bootstrap.Modal(
-document.getElementById("modalEliminarProducto")
-).show();
+            new bootstrap.Modal(
+                document.getElementById("modalEliminarProducto")
+            ).show();
 
-}
+        }
 
-function confirmarEliminarProducto(){
+        function confirmarEliminarProducto() {
 
-const form = document.getElementById("formEliminarProducto");
+            const form = document.getElementById("formEliminarProducto");
 
-form.action = `/productos/eliminar/${productoIdEliminar}?_method=DELETE`;
+            form.action = `/productos/eliminar/${productoIdEliminar}?_method=DELETE`;
 
-form.submit();
+            form.submit();
 
-}
+        }
 
-</script>
+    </script>
 
 </body>
+
 </html>
