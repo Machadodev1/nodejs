@@ -8,7 +8,7 @@ exports.consultar = async (req, res) => {
 
 exports.obtenerPorId = async (req, res) => {
   const data = await Cliente.findById(req.params.id);
-  res.json(data);
+  res.render('pages/vercliente.ejs', { cliente: data });
 };
 
 exports.crear = async (req, res) => {
