@@ -45,9 +45,11 @@ exports.actualizar = async (req, res) => {
 };
 
 exports.eliminar = async (req, res) => {
-  await Producto.findByIdAndDelete(req.params.id);
-  res.json({ mensaje: "Producto eliminado" });
+  try {
+    await Producto.findByIdAndDelete(req.params.id);
+    res.redirect('/productos');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al eliminar producto");
+  }
 };
-
-
-

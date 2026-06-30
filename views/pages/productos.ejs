@@ -7,161 +7,175 @@
 
 <body class="container">
 
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
+<header>
+    <%- include('../partials/header'); %>
+</header>
 
-    <main>
-        <div>
-            <h1>Productos</h1>
+<main>
 
-            <table id="tabla" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Stock</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
+    <h1>Clientes</h1>
 
-                <tbody>
-                    <% productos.forEach(function(producto) { %>
-                        <tr>
-                            <td><%= producto.stock %></td>
-                            <td><%= producto.nombre %></td>
-                            <td><%= producto.precio %></td>
+    <table class="table table-bordered table-hover">
 
-                            <td>
-                                <button
-                                    type="button"
-                                    class="btn btn-outline-info"
-                                    onclick="verProducto('<%= producto._id %>')">
-                                    Ver detalle
-                                </button>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-                                <a href="#" class="btn btn-outline-warning">
-                                    Editar
-                                </a>
+        <tbody>
 
-                                <a href="#" class="btn btn-outline-danger">
-                                    Eliminar
-                                </a>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
-        </div>
+            <% clientes.forEach(function(cliente){ %>
 
-        <div class="modal fade"
-             id="modalProducto"
-             tabindex="-1"
-             aria-labelledby="tituloModalProducto"
-             aria-hidden="true">
+                <tr>
 
-            <div class="modal-dialog modal-lg">
+                    <td><%= cliente.nombre %></td>
+                    <td><%= cliente.email %></td>
+                    <td><%= cliente.telefono %></td>
 
-                <div class="modal-content">
+                    <td>
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="tituloModalProducto">
-                            Detalle del Producto
-                        </h5>
-
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close">
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="row">
-
-                            <div class="col-md-6 mb-3">
-                                <strong>Nombre</strong>
-                                <p id="nombreProducto"></p>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <strong>Precio</strong>
-                                <p id="precioProducto"></p>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <strong>Stock</strong>
-                                <p id="stockProducto"></p>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <strong>Categoría</strong>
-                                <p id="categoriaProducto"></p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
-                            Cerrar
+                        <button type="button"
+                            class="btn btn-outline-info"
+                            onclick="verCliente('<%= cliente._id %>')">
+                            Ver detalle
                         </button>
 
-                    </div>
+                        <a href="#" class="btn btn-outline-warning">
+                            Editar
+                        </a>
 
-                </div>
+                        <button type="button"
+                            class="btn btn-outline-danger"
+                            onclick="abrirModalEliminar('<%= cliente._id %>')">
+                            Eliminar
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            <% }); %>
+
+        </tbody>
+
+    </table>
+
+</main>
+
+
+<div class="modal fade" id="modalCliente" tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5>Detalle del Cliente</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <p><strong>Nombre:</strong> <span id="nombreCliente"></span></p>
+                <p><strong>Email:</strong> <span id="emailCliente"></span></p>
+                <p><strong>Teléfono:</strong> <span id="telefonoCliente"></span></p>
 
             </div>
 
         </div>
 
-    </main>
+    </div>
 
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
+</div>
 
-    <script>
-        async function verProducto(id) {
+<div class="modal fade" id="modalEliminarCliente" tabindex="-1">
 
-            try {
+    <div class="modal-dialog modal-dialog-centered">
 
-                const respuesta = await fetch(`/productos/${id}`);
+        <div class="modal-content">
 
-                if (!respuesta.ok) {
-                    throw new Error("No se pudo obtener el producto");
-                }
+            <div class="modal-header">
+                <h5>Confirmar eliminación</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-                const producto = await respuesta.json();
+            <div class="modal-body">
+                ¿Seguro que quieres eliminar este cliente?
+            </div>
 
-                document.getElementById("nombreProducto").textContent = producto.nombre;
-                document.getElementById("precioProducto").textContent = producto.precio;
-                document.getElementById("stockProducto").textContent = producto.stock;
-                document.getElementById("categoriaProducto").textContent = producto.categoria;
+            <div class="modal-footer">
 
-                const modal = new bootstrap.Modal(
-                    document.getElementById("modalProducto")
-                );
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
 
-                modal.show();
+                <!-- ESTE ES EL FORM REAL -->
+                <form id="formEliminarCliente" method="POST" style="display:inline;">
+                    <button type="button"
+                        class="btn btn-danger"
+                        onclick="confirmarEliminar()">
+                        Eliminar
+                    </button>
+                </form>
 
-            } catch (error) {
+            </div>
 
-                console.error(error);
-                alert("Error al cargar el producto.");
+        </div>
 
-            }
+    </div>
 
-        }
-    </script>
+</div>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+<script>
+
+let clienteIdEliminar = null;
+
+async function verCliente(id){
+
+    try{
+
+        const res = await fetch(`/clientes/${id}`);
+        const data = await res.json();
+
+        document.getElementById("nombreCliente").textContent = data.nombre;
+        document.getElementById("emailCliente").textContent = data.email;
+        document.getElementById("telefonoCliente").textContent = data.telefono;
+
+        new bootstrap.Modal(document.getElementById("modalCliente")).show();
+
+    }catch(error){
+        console.error(error);
+        alert("Error al cargar cliente");
+    }
+
+}
+
+function abrirModalEliminar(id){
+    clienteIdEliminar = id;
+
+    new bootstrap.Modal(
+        document.getElementById("modalEliminarCliente")
+    ).show();
+}
+
+function confirmarEliminar(){
+
+    const form = document.getElementById("formEliminarCliente");
+
+    form.action = `/clientes/eliminar/${clienteIdEliminar}?_method=DELETE`;
+
+    form.submit();
+}
+
+</script>
 
 </body>
-
 </html>

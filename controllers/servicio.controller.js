@@ -47,8 +47,11 @@ exports.actualizar = async (req, res) => {
 };
 
 exports.eliminar = async (req, res) => {
-  await Servicio.findByIdAndDelete(req.params.id);
-  res.json({ mensaje: "Servicio eliminado" });
+  try {
+    await Servicio.findByIdAndDelete(req.params.id);
+    res.redirect('/servicios');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al eliminar servicio");
+  }
 };
-
-

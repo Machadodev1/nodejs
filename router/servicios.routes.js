@@ -8,7 +8,7 @@ router.get('/servicios', servicioController.consultar);
 router.get('/servicios/:id', servicioController.obtenerPorId);
 router.post('/crearservicio', servicioController.crear);
 router.put('/servicios/:id', servicioController.actualizar);
-router.delete('/servicios/:id', servicioController.eliminar);
+router.delete('/servicios/eliminar/:id', servicioController.eliminar);
 
 
 
