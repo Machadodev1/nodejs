@@ -36,13 +36,15 @@ exports.crear = async (req, res) => {
 };
 
 exports.actualizar = async (req, res) => {
-  const data = await Producto.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
-  res.json(data);
+  try {
+    await Producto.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/productos');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al actualizar producto");
+  }
 };
+
 
 exports.eliminar = async (req, res) => {
   try {

@@ -7,154 +7,233 @@
 
 <body class="container">
 
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
+<header>
+    <%- include('../partials/header'); %>
+</header>
 
-    <main>
+<main>
 
-        <h1>Servicios</h1>
+<h1>Servicios</h1>
 
-        <table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover">
 
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Duración</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Precio</th>
+<th>Duración</th>
+<th>Acciones</th>
+</tr>
+</thead>
 
-            <tbody>
+<tbody>
 
-                <% servicios.forEach(function(servicio){ %>
+<% servicios.forEach(function(servicio){ %>
 
-                    <tr>
+<tr>
 
-                        <td>
-                            <%= servicio.nombre %>
-                        </td>
-                        <td>
-                            <%= servicio.precio %>
-                        </td>
-                        <td>
-                            <%= servicio.duracionMinutos %>
-                        </td>
+<td><%= servicio.nombre %></td>
+<td><%= servicio.precio %></td>
+<td><%= servicio.duracionMinutos %></td>
 
-                        <td>
+<td>
 
-                            <button class="btn btn-outline-info" onclick="verServicio('<%= servicio._id %>')">
-                                Ver detalle
-                            </button>
+<button class="btn btn-outline-info"
+onclick="verServicio('<%= servicio._id %>')">
+Ver detalle
+</button>
 
-                            <a href="#" class="btn btn-outline-warning">Editar</a>
+<button class="btn btn-outline-warning"
+onclick="abrirModalEditarServicio('<%= servicio._id %>', '<%= servicio.nombre %>', '<%= servicio.precio %>', '<%= servicio.duracionMinutos %>')">
+Editar
+</button>
 
-                            <button class="btn btn-outline-danger"
-                                onclick="abrirModalEliminarServicio('<%= servicio._id %>')">
-                                Eliminar
-                            </button>
+<button class="btn btn-outline-danger"
+onclick="abrirModalEliminarServicio('<%= servicio._id %>')">
+Eliminar
+</button>
 
-                        </td>
+</td>
 
-                    </tr>
+</tr>
 
-                    <% }) %>
+<% }) %>
 
-            </tbody>
+</tbody>
 
-        </table>
+</table>
 
-    </main>
+</main>
 
-    <div class="modal fade" id="modalServicio" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<!-- ================= DETALLE ================= -->
 
-                <div class="modal-header">
-                    <h5>Detalle Servicio</h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+<div class="modal fade" id="modalServicio" tabindex="-1">
 
-                <div class="modal-body">
+<div class="modal-dialog">
 
-                    <p><b>Nombre:</b> <span id="nombreServicio"></span></p>
-                    <p><b>Precio:</b> <span id="precioServicio"></span></p>
-                    <p><b>Duración:</b> <span id="duracionServicio"></span></p>
+<div class="modal-content">
 
-                </div>
+<div class="modal-header">
+<h5>Detalle Servicio</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
 
-            </div>
-        </div>
-    </div>
+<div class="modal-body">
 
-    <div class="modal fade" id="modalEliminarServicio" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+<p><b>Nombre:</b> <span id="nombreServicio"></span></p>
+<p><b>Precio:</b> <span id="precioServicio"></span></p>
+<p><b>Duración:</b> <span id="duracionServicio"></span></p>
 
-                <div class="modal-header">
-                    <h5>Confirmar eliminación</h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+</div>
 
-                <div class="modal-body">
-                    ¿Seguro que quieres eliminar este servicio?
-                </div>
+</div>
 
-                <div class="modal-footer">
+</div>
 
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
+</div>
 
-                    <form id="formEliminarServicio" method="POST">
-                        <button type="button" class="btn btn-danger" onclick="confirmarEliminarServicio()">
-                            Eliminar
-                        </button>
-                    </form>
+<!-- ================= EDITAR ================= -->
 
-                </div>
+<div class="modal fade" id="modalEditarServicio" tabindex="-1">
 
-            </div>
-        </div>
-    </div>
+<div class="modal-dialog">
 
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
+<div class="modal-content">
 
-    <script>
+<div class="modal-header">
+<h5>Editar Servicio</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
 
-        let servicioId = null;
+<form id="formEditarServicio" method="POST">
 
-        async function verServicio(id) {
+<div class="modal-body">
 
-            const res = await fetch(`/servicios/${id}`);
-            const data = await res.json();
+<input class="form-control mb-2" id="editNombreServicio" name="nombre" placeholder="Nombre">
 
-            document.getElementById("nombreServicio").textContent = data.nombre;
-            document.getElementById("precioServicio").textContent = data.precio;
-            document.getElementById("duracionServicio").textContent = data.duracionMinutos;
+<input class="form-control mb-2" id="editPrecioServicio" name="precio" placeholder="Precio">
 
-            new bootstrap.Modal(document.getElementById("modalServicio")).show();
+<input class="form-control mb-2" id="editDuracionServicio" name="duracionMinutos" placeholder="Duración">
 
-        }
+</div>
 
-        function abrirModalEliminarServicio(id) {
-            servicioId = id;
-            new bootstrap.Modal(document.getElementById("modalEliminarServicio")).show();
-        }
+<div class="modal-footer">
 
-        function confirmarEliminarServicio() {
+<button class="btn btn-secondary" data-bs-dismiss="modal">
+Cancelar
+</button>
 
-            const form = document.getElementById("formEliminarServicio");
-            form.action = `/servicios/eliminar/${servicioId}?_method=DELETE`;
-            form.submit();
+<button class="btn btn-warning" type="submit">
+Actualizar
+</button>
 
-        }
+</div>
 
-    </script>
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= ELIMINAR ================= -->
+
+<div class="modal fade" id="modalEliminarServicio" tabindex="-1">
+
+<div class="modal-dialog modal-dialog-centered">
+
+<div class="modal-content">
+
+<div class="modal-header">
+<h5>Confirmar eliminación</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+¿Seguro que quieres eliminar este servicio?
+</div>
+
+<div class="modal-footer">
+
+<button class="btn btn-secondary" data-bs-dismiss="modal">
+Cancelar
+</button>
+
+<form id="formEliminarServicio" method="POST">
+<button type="button" class="btn btn-danger" onclick="confirmarEliminarServicio()">
+Eliminar
+</button>
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+<script>
+
+let servicioIdEliminar = null;
+
+/* ================= VER ================= */
+
+async function verServicio(id){
+
+const res = await fetch(`/servicios/${id}`);
+const data = await res.json();
+
+document.getElementById("nombreServicio").textContent = data.nombre;
+document.getElementById("precioServicio").textContent = data.precio;
+document.getElementById("duracionServicio").textContent = data.duracionMinutos;
+
+new bootstrap.Modal(document.getElementById("modalServicio")).show();
+
+}
+
+/* ================= EDITAR ================= */
+
+function abrirModalEditarServicio(id, nombre, precio, duracion){
+
+document.getElementById("editNombreServicio").value = nombre;
+document.getElementById("editPrecioServicio").value = precio;
+document.getElementById("editDuracionServicio").value = duracion;
+
+document.getElementById("formEditarServicio").action =
+`/servicios/editar/${id}?_method=PUT`;
+
+new bootstrap.Modal(document.getElementById("modalEditarServicio")).show();
+
+}
+
+/* ================= ELIMINAR ================= */
+
+function abrirModalEliminarServicio(id){
+servicioIdEliminar = id;
+
+new bootstrap.Modal(
+document.getElementById("modalEliminarServicio")
+).show();
+
+}
+
+function confirmarEliminarServicio(){
+
+const form = document.getElementById("formEliminarServicio");
+
+form.action = `/servicios/eliminar/${servicioIdEliminar}?_method=DELETE`;
+
+form.submit();
+
+}
+
+</script>
 
 </body>
-
 </html>

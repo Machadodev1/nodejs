@@ -38,12 +38,13 @@ exports.crear = async (req, res) => {
 };
 
 exports.actualizar = async (req, res) => {
-  const data = await Servicio.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
-  res.json(data);
+  try {
+    await Servicio.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/servicios');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al actualizar servicio");
+  }
 };
 
 exports.eliminar = async (req, res) => {
