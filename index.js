@@ -17,6 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
+const enrutamiento = require("./router/clientes.routes.js");
+const enrutamiento2 = require("./router/productos.routes.js");
+const enrutamiento3 = require("./router/servicios.routes.js");
+app.use('/api/cli/',enrutamiento);
+app.use('/api/pro/',enrutamiento2);
+app.use('/api/ser/',enrutamiento3);
 
 conexion
   .then(() => console.log("Conexion exitosa a MongoDB"))
