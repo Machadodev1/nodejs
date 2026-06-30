@@ -14,43 +14,153 @@
     <main>
         <div>
             <h1>Productos</h1>
+
             <table id="tabla" class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Stock</th>
                         <th>Nombre</th>
                         <th>Precio</th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <% productos.forEach(function(producto) { %>
                         <tr>
+                            <td><%= producto.stock %></td>
+                            <td><%= producto.nombre %></td>
+                            <td><%= producto.precio %></td>
+
                             <td>
-                                <%= producto.stock %>
-                            </td>
-                            <td>
-                                <%= producto.nombre %>
-                            </td>
-                            <td>
-                                <%= producto.precio %>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-outline-info">Ver Detalle</a>
-                                <a href="#" class="btn btn-outline-warning">Editar</a>
-                                <a href="#" class="btn btn-outline-danger">Eliminar</a>
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-info"
+                                    onclick="verProducto('<%= producto._id %>')">
+                                    Ver detalle
+                                </button>
+
+                                <a href="#" class="btn btn-outline-warning">
+                                    Editar
+                                </a>
+
+                                <a href="#" class="btn btn-outline-danger">
+                                    Eliminar
+                                </a>
                             </td>
                         </tr>
-                        <% }); %>
+                    <% }); %>
                 </tbody>
             </table>
         </div>
+
+        <div class="modal fade"
+             id="modalProducto"
+             tabindex="-1"
+             aria-labelledby="tituloModalProducto"
+             aria-hidden="true">
+
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModalProducto">
+                            Detalle del Producto
+                        </h5>
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <strong>Nombre</strong>
+                                <p id="nombreProducto"></p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong>Precio</strong>
+                                <p id="precioProducto"></p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong>Stock</strong>
+                                <p id="stockProducto"></p>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <strong>Categoría</strong>
+                                <p id="categoriaProducto"></p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </main>
 
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
+
+    <script>
+        async function verProducto(id) {
+
+            try {
+
+                const respuesta = await fetch(`/productos/${id}`);
+
+                if (!respuesta.ok) {
+                    throw new Error("No se pudo obtener el producto");
+                }
+
+                const producto = await respuesta.json();
+
+                document.getElementById("nombreProducto").textContent = producto.nombre;
+                document.getElementById("precioProducto").textContent = producto.precio;
+                document.getElementById("stockProducto").textContent = producto.stock;
+                document.getElementById("categoriaProducto").textContent = producto.categoria;
+
+                const modal = new bootstrap.Modal(
+                    document.getElementById("modalProducto")
+                );
+
+                modal.show();
+
+            } catch (error) {
+
+                console.error(error);
+                alert("Error al cargar el producto.");
+
+            }
+
+        }
+    </script>
 
 </body>
 

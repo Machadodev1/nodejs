@@ -6,8 +6,27 @@ exports.consultar = async (req, res) => {
 };
 
 exports.obtenerPorId = async (req, res) => {
-  const data = await Producto.findById(req.params.id);
-  res.json(data);
+    try {
+        console.log("ID recibido:", req.params.id);
+
+        const producto = await Producto.findById(req.params.id);
+
+        console.log("Producto encontrado:", producto);
+
+        if (!producto) {
+            return res.status(404).json({
+                mensaje: "Producto no encontrado"
+            });
+        }
+
+        res.json(producto);
+
+    } catch (error) {
+        console.error("ERROR:", error);
+        res.status(500).json({
+            mensaje: error.message
+        });
+    }
 };
 
 exports.crear = async (req, res) => {

@@ -7,8 +7,27 @@ exports.consultar = async (req, res) => {
 };
 
 exports.obtenerPorId = async (req, res) => {
-  const data = await Servicio.findById(req.params.id);
-  res.json(data);
+    try {
+
+        const servicio = await Servicio.findById(req.params.id);
+
+        if (!servicio) {
+            return res.status(404).json({
+                mensaje: "Servicio no encontrado"
+            });
+        }
+
+        res.json(servicio);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            mensaje: "Error del servidor"
+        });
+
+    }
 };
 
 exports.crear = async (req, res) => {

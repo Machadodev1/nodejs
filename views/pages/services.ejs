@@ -12,42 +12,169 @@
     </header>
 
     <main>
+
         <div>
             <h1>Servicios</h1>
+
             <table id="tabla" class="table table-bordered table-hover">
                 <thead>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Duracion (minutos)</th>
-                    <th></th>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Duración (minutos)</th>
+                        <th>Acciones</th>
+                    </tr>
                 </thead>
+
                 <tbody>
                     <% servicios.forEach(function(servicio) { %>
                         <tr>
-                            <th>
-                                <%= servicio.nombre %>
-                            </th>
-                            <th>
-                                <%= servicio.precio %>
-                            </th>
-                            <th>
-                                <%= servicio.duracionMinutos %>
-                            </th>
+
                             <td>
-                                <a href="#" class="btn btn-outline-info">Ver Detalle</a>
-                                <a href="#" class="btn btn-outline-warning">Editar</a>
-                                <a href="#" class="btn btn-outline-danger">Eliminar</a>
+                                <%= servicio.nombre %>
                             </td>
+
+                            <td>
+                                <%= servicio.precio %>
+                            </td>
+
+                            <td>
+                                <%= servicio.duracionMinutos %>
+                            </td>
+
+                            <td>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-info"
+                                    onclick="verServicio('<%= servicio._id %>')">
+
+                                    Ver detalle
+
+                                </button>
+
+                                <a href="#" class="btn btn-outline-warning">
+                                    Editar
+                                </a>
+
+                                <a href="#" class="btn btn-outline-danger">
+                                    Eliminar
+                                </a>
+
+                            </td>
+
                         </tr>
-                        <% }); %>
+                    <% }); %>
                 </tbody>
+
             </table>
         </div>
+
+        <!-- Modal -->
+
+        <div class="modal fade"
+             id="modalServicio"
+             tabindex="-1"
+             aria-labelledby="tituloModalServicio"
+             aria-hidden="true">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="tituloModalServicio">
+                            Detalle del Servicio
+                        </h5>
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p>
+                            <strong>Nombre:</strong>
+                            <span id="nombreServicio"></span>
+                        </p>
+
+                        <p>
+                            <strong>Precio:</strong>
+                            <span id="precioServicio"></span>
+                        </p>
+
+                        <p>
+                            <strong>Duración (minutos):</strong>
+                            <span id="duracionServicio"></span>
+                        </p>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                            Cerrar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </main>
 
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
+
+    <script>
+
+        async function verServicio(id){
+
+            try{
+
+                const respuesta = await fetch(`/servicios/${id}`);
+
+                if(!respuesta.ok){
+                    throw new Error("No se pudo obtener el servicio");
+                }
+
+                const servicio = await respuesta.json();
+
+                document.getElementById("nombreServicio").textContent = servicio.nombre;
+                document.getElementById("precioServicio").textContent = servicio.precio;
+                document.getElementById("duracionServicio").textContent = servicio.duracionMinutos;
+
+                const modal = new bootstrap.Modal(
+                    document.getElementById("modalServicio")
+                );
+
+                modal.show();
+
+            }catch(error){
+
+                console.error(error);
+                alert("Error al cargar el servicio.");
+
+            }
+
+        }
+
+    </script>
 
 </body>
 
